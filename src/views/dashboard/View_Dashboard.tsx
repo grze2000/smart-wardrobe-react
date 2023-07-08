@@ -16,6 +16,7 @@ import {
 } from 'app/api/clothes/addClothing'
 import { useGetClothes } from 'app/api/clothes/getClothes'
 import { uploadClothingImage } from 'app/api/clothes/uploadClothingImage'
+import { useGetWeather } from 'app/api/weather/getWeather'
 import { useFormMutation } from 'app/hooks'
 import { AxiosError } from 'axios'
 import { InputSelect, InputSubmit, InputText } from 'components/form/input'
@@ -95,6 +96,9 @@ const Dashboard = () => {
   const { data: clothes, refetch } = useGetClothes(
     searchParams.get('category') as string,
   )
+  const { data: weather } = useGetWeather()
+  console.log(weather);
+  
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const onSuccess = () => {
@@ -146,6 +150,11 @@ const Dashboard = () => {
         </ActionIcon>
       </h1>
       <div className="flex flex-col sm:flex-row gap-4 flex-wrap pb-10">
+        {clothes?.length === 0 && (
+          <div className="flex flex-col items-center justify-center flex-1 gap-4">
+            <h2 className="text-xl">Brak wyników</h2>
+          </div>
+        )}
         {clothes?.map((clothing, index) => (
           <div
             className={`bg-[${

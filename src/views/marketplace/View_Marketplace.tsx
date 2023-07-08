@@ -15,6 +15,11 @@ const Dashboard = () => {
     <Box className="flex flex-1 flex-col gap-4 px-4">
       <h1 className="text-3xl flex gap-3 items-center">Marketplace</h1>
       <div className="flex flex-col sm:flex-row gap-4 flex-wrap pb-10">
+        {clothes?.length === 0 && (
+          <div className="flex flex-col items-center justify-center flex-1 gap-4">
+            <h2 className="text-xl">Brak wyników</h2>
+          </div>
+        )}
         {clothes?.map((clothing, index) => (
           <div
             className={`bg-[${
