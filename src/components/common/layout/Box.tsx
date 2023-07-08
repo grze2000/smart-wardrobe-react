@@ -1,6 +1,6 @@
 import { Group, Stack } from "@mantine/core"
 import classNames from "classnames"
-import { GoPrimitiveDot } from "react-icons/go"
+import { PiDotOutlineFill } from "react-icons/pi"
 
 export interface BoxProps {
   children?: React.ReactNode
@@ -24,9 +24,9 @@ export const Box = ({ children, className, title, icon, color, rightSection, sta
         {!!title && (
           <h2 className="text-lg flex items-center">{title}
             {stateIndicator === 'active' ? (
-              <GoPrimitiveDot className="text-green-500" />
+              <PiDotOutlineFill className="text-green-500" />
             ) : stateIndicator === 'inactive' ? (
-              <GoPrimitiveDot className="text-gray-500" />
+              <PiDotOutlineFill className="text-gray-500" />
             ) : (
               <></>
             )}

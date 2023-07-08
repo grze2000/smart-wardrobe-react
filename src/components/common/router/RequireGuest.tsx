@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom'
 import { RouteGuardProps } from './RequireAuth'
 
 export const RequireGuest = ({ children }: RouteGuardProps): JSX.Element => {
-  const { userId } = useAuth((state) => state)
+  const { id } = useAuth((state) => state)
 
-  if (!userId) {
+  if (!id) {
     console.log('shall pass')
     return children
   } else {

@@ -1,7 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ApiErrorData } from 'app/api/axios'
 import { AxiosError, AxiosResponse } from 'axios'
-import { FieldValues, Path, SubmitHandler, UnPackAsyncDefaultValues, useForm } from 'react-hook-form'
+import {
+  FieldValues,
+  Path,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form'
 import { useMutation, UseMutationOptions } from 'react-query'
 import { AnyObjectSchema } from 'yup'
 
@@ -28,27 +33,27 @@ export const useFormMutation = <FormFields extends FieldValues, ServerResponse>(
 
   const handleError = (error: AxiosError<ApiErrorData>) => {
     if (error.response?.status === 401) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: 'Brak uprawnień (401)',
       })
     } else if (error.response?.status === 403) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: 'Brak uprawnień (403)',
       })
     } else if (error.response?.status === 404) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: 'Nie znaleziono zasobu (404)',
       })
     } else if (error.response?.status === 405) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: 'Nieprawidłowa metoda (405)',
       })
     } else if (error.response?.status === 500) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: 'Wystąpił nieoczekiwany błąd. Spróbuj ponownie później (500)',
       })
@@ -60,13 +65,13 @@ export const useFormMutation = <FormFields extends FieldValues, ServerResponse>(
       )
 
       errors.forEach(([key, value]) => {
-        methods.setError(key.toLowerCase() as Path<UnPackAsyncDefaultValues<FormFields>>, {
+        methods.setError(key.toLowerCase() as Path<FormFields>, {
           type: 'API',
           message: value[0],
         })
       })
     } else if (error.response?.data.message) {
-      methods.setError('status' as Path<UnPackAsyncDefaultValues<FormFields>>, {
+      methods.setError('status' as Path<FormFields>, {
         type: 'API',
         message: error.response.data.message,
       })
