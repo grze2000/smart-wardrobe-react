@@ -1,0 +1,5 @@
+export const PERMISSION_GUEST = 'Guest'
+export const PERMISSION_GLOBAL_ADMIN = 'GLOBAL_ADMIN'
+export const PERMISSION_ADMIN = 'ADMIN'
+export const PERMISSION_USER = 'USER'
+export const PERMISSION_MANAGER = 'MANAGER'
