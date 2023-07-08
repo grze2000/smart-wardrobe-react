@@ -20,7 +20,7 @@ export interface Company {
 
 export interface LoginResponse {
   accessToken: string | null
-  user: User
+  user: Omit<User, 'password'>
 }
 
 

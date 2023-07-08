@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginResponse, RefreshTokenReturnData } from './auth'
 import { clothes } from './mocks/clothes'
+import { users } from './mocks/users'
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -22,24 +23,46 @@ export const setupMocks = () => {
 
   const singleClothingItem = new RegExp(`${API_URL}/clothes/(.*)`)
 
-
   mock.onPost(`${API_URL}/auth/sign-in`).reply((config: AxiosRequestConfig) => {
     const data = JSON.parse(config.data)
+    const user = users.find(
+      (user) => user.email === data?.email && user.password === data?.password,
+    )
+    if (!user) {
+      return [
+        401,
+        {
+          message: 'Nieprawidłowy email lub hasło',
+        },
+      ]
+    }
     const response: LoginResponse = {
       accessToken: 'he he access token',
-      user: {
-        id: 1,
-        email: data?.email ?? 'test@test.pl',
-        roles: ['USER'],
-        firstName: 'Jan',
-        lastName: 'Kowalski',
-      },
+      user,
     }
     return [200, response]
   })
 
   mock.onPost(`${API_URL}/auth/sign-up`).reply((config: AxiosRequestConfig) => {
-    return [201]
+    const newUser = JSON.parse(config.data)
+    const userId = parseInt(Math.random().toString().slice(2, 10))
+    const newUserObject = {
+      id: userId,
+      email: newUser?.email,
+      firstName: newUser?.firstName,
+      lastName: newUser?.lastName,
+      password: newUser?.password,
+      roles: ['USER'],
+    }
+    users.push(newUserObject)
+    localStorage.setItem('users', JSON.stringify(users))
+    return [
+      201,
+      {
+        accessToken: 'he he access token',
+        user: newUserObject,
+      },
+    ]
   })
 
   mock
@@ -51,14 +74,12 @@ export const setupMocks = () => {
       return [200, response]
     })
 
-
   mock.onGet(`${API_URL}/marketplace`).reply((config: AxiosRequestConfig) => {
-    console.log('config', config.params?.category[0])
-    
-    const clothesToReturn = clothes
-    .filter(
+    const clothesToReturn = clothes.filter(
       (clothing) =>
-        clothing.type === 'all' || clothing.type === config.params?.category[0]
+        !config.params?.category?.[0] ||
+        config.params?.category[0] === 'all' ||
+        clothing.type === config.params?.category[0],
     )
     // .map(({ id, name }) => ({
     //   id,
@@ -68,12 +89,11 @@ export const setupMocks = () => {
   })
 
   mock.onGet(`${API_URL}/clothes`).reply((config: AxiosRequestConfig) => {
-    console.log('config', config.params?.category[0])
-    
-    const clothesToReturn = clothes
-    .filter(
+    const clothesToReturn = clothes.filter(
       (clothing) =>
-        clothing.type === 'all' || clothing.type === config.params?.category[0]
+        !config.params?.category?.[0] ||
+        config.params?.category[0] === 'all' ||
+        clothing.type === config.params?.category[0],
     )
     // .map(({ id, name }) => ({
     //   id,
@@ -81,7 +101,6 @@ export const setupMocks = () => {
     // }))
     return [200, clothesToReturn]
   })
-
 
   mock.onPost(`${API_URL}/clothes`).reply((config: AxiosRequestConfig) => {
     const newClothingItem = JSON.parse(config.data)

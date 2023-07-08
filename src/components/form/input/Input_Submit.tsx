@@ -6,6 +6,7 @@ interface InputSubmitProps extends DefaultProps {
   value: string
   icon?: IconType
   disabled?: boolean
+  loading?: boolean
 }
 
 export const InputSubmit = ({

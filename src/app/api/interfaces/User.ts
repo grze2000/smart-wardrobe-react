@@ -1,5 +1,3 @@
-import { Area } from "./Area"
-import { Installation } from "./Installation"
 
 export interface User {
   id: number
@@ -7,15 +5,11 @@ export interface User {
   roles: string[]
   firstName: string
   lastName: string
+  password: string
 }
 
 export interface EditUser {
   email: string
   firstName: string
   lastName: string
-}
-
-export interface UserResponse extends Omit<User, "installations" | "areaId"> {
-  installations?: Installation[]
-  area?: Area
 }

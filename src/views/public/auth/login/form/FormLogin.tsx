@@ -21,7 +21,7 @@ export const FormLogin = () => {
   const routeBack = (state as LocationState)?.from?.pathname
 
   const onSuccess = async (data: LoginResponse) => {
-    console.log('Token from login response', data.accessToken);
+    console.log('Token from login response', data.accessToken)
     setAuthState(data)
     navigate(routeBack || r['dashboard'])
   }
@@ -35,7 +35,7 @@ export const FormLogin = () => {
     })
   }
 
-  const { methods, handleSubmit } = useFormMutation<
+  const { methods, handleSubmit, isLoading } = useFormMutation<
     LoginFormFields,
     LoginResponse
   >(loginSchema, login, { onSuccess, onError })
@@ -60,7 +60,7 @@ export const FormLogin = () => {
             name="password"
           />
 
-          <InputSubmit value="Zaloguj się" mt={'md'} />
+          <InputSubmit value="Zaloguj się" mt={'md'} loading={isLoading} />
         </Stack>
       </form>
     </FormProvider>

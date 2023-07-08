@@ -16,7 +16,7 @@ export const RequireAuth = ({
   roles,
   children,
 }: RouteGuardProps): JSX.Element => {
-  const userId = useAuth((state) => state.userId)
+  const userId = useAuth((state) => state.id)
   const userRoles = useAuth((state) => state.roles)
   const location = useLocation()
 

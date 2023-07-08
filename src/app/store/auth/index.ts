@@ -6,12 +6,11 @@ import { devtools, persist } from 'zustand/middleware'
 
 export interface AuthStore {
   accessToken: string | null
-  userId: number | null
+  id: number | null
   email: string | null
   roles: string[] | null
   firstName: string | null
   lastName: string | null
-  areaId: number | null
   setAuthState: ({
     user: { id, email, roles, firstName, lastName },
   }: LoginResponse) => void
@@ -20,12 +19,11 @@ export interface AuthStore {
 
 export const authStoreInitialState = {
   accessToken: null,
-  userId: null,
+  id: null,
   email: null,
   roles: [PERMISSION_GUEST],
   firstName: null,
   lastName: null,
-  areaId: null,
 }
 
 export const useAuth = create<AuthStore>()(
@@ -33,10 +31,10 @@ export const useAuth = create<AuthStore>()(
     persist((set) => ({
       ...authStoreInitialState,
       setAuthState: ({
-        user: { id: userId, email, roles, firstName, lastName },
+        user: { id, email, roles, firstName, lastName },
         accessToken,
       }: LoginResponse) => {
-        set({ accessToken, userId, email, roles, firstName, lastName })
+        set({ accessToken, id, email, roles, firstName, lastName })
       },
       clearAuthState: () => {
         revokeToken()

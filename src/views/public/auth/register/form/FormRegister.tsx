@@ -1,5 +1,5 @@
 import { FormProvider } from 'react-hook-form'
-import { Button, Group, Stack } from '@mantine/core'
+import { Group, Stack } from '@mantine/core'
 import { InputPassword, InputSubmit, InputText } from 'components/form/input'
 import { useNavigate } from 'react-router-dom'
 import { r } from 'app/router'
@@ -14,7 +14,6 @@ import {
 } from 'app/api'
 import { ApiErrorData } from 'app/api/axios'
 import { useFormMutation } from 'app/hooks'
-import { FormSeparator } from 'components/form'
 import { useInputStyleButtonStyles } from 'app/styles/mantine/buttons/InputStyleButton'
 import { useAuth } from 'app/store'
 import { ImCross } from 'react-icons/im'
@@ -48,7 +47,7 @@ export const FormRegister = () => {
     })
   }
 
-  const { methods, handleSubmit } = useFormMutation<
+  const { methods, handleSubmit, isLoading } = useFormMutation<
     RegisterFormFields,
     LoginResponse
   >(registerSchema, register, {
@@ -105,7 +104,7 @@ export const FormRegister = () => {
             name="confirmPassword"
           />
 
-          <InputSubmit value="Zarejestruj się" mt={'md'} />
+          <InputSubmit value="Zarejestruj się" mt={'md'} loading={isLoading} />
         </Stack>
       </form>
     </FormProvider>
