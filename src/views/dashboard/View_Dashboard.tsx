@@ -27,6 +27,10 @@ import { FaPlus } from 'react-icons/fa'
 import { ImCross } from 'react-icons/im'
 import { useSearchParams } from 'react-router-dom'
 
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 const colors = ['#f1f6fa', '#f9f4f3', '#f5f5f5', '#fcf4ef']
 const categories = [
   {
@@ -97,7 +101,6 @@ const Dashboard = () => {
     searchParams.get('category') as string,
   )
   const { data: weather } = useGetWeather()
-  console.log(weather)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -118,7 +121,7 @@ const Dashboard = () => {
   const { methods, handleSubmit } = useFormMutation<
     CreateClothingFormFields,
     CreateClothingResponse
-  >(createClothingSchema, addClothing, { onSuccess, onError })
+  >(createClothingSchema, addClothing, { onSuccess, onError }, {photoUrl: ''})
 
   const [file, setFile] = useState<File | null>(null)
 
@@ -138,12 +141,25 @@ const Dashboard = () => {
       </Group>
       <div className="bg-gradient-to-tr to-[#dceaf9] from-[#f7ede9] via-[#e9e8fb] min-h-52 rounded-lg flex flex-col sm:flex-row p-4 gap-4">
         <div className="grow">
-          <div className="text-4xl">Słonecznie, 22°C</div>
-          <div className="sm:mt-4">Brak prognozowanych opadów</div>
+          <div className="text-4xl">
+            {capitalize(weather?.current.weather.description as string)},{' '}
+            {weather?.current.temp}°C
+          </div>
+          <div className="sm:mt-4">{weather?.daily[0]?.summary}</div>
         </div>
         <div className="flex flex-col justify-between">
           <div className="text-center sm:text-left mb-2 sm:mb-0">
-            Ubierz się lekko i przewiewnie
+            {!weather?.current?.temp
+              ? ''
+              : weather?.current?.temp > 25
+              ? 'Ubierz się lekko i przewiewnie'
+              : weather?.current.temp > 15
+              ? 'Ubierz się komfortowo, np. w t-shirt i jeansy'
+              : weather?.current.temp > 5
+              ? 'Lekka kurtka czy sweter będą odpowiednie'
+              : 'Zadbaj o ciepłe ubranie, temperatura jest niska'}
+            {weather?.daily[0]?.rain &&
+              ', pamiętaj o parasolu lub kurtce przeciwdeszczowej'}
           </div>
           <Button>Zobacz propozycje</Button>
         </div>

@@ -1,7 +1,19 @@
 import { useQuery2 } from 'app/hooks'
 import axios from 'axios'
-import { Clothing } from '../interfaces/Clothes'
 import { OPENWEATHERMAP_API_KEY } from 'app/config/env'
+
+export interface WeatherInfo {
+  current: {
+    temp: number
+    weather: {
+      description: string
+    }
+  }
+  daily: {
+    summary: string
+    rain?: number
+  }[]
+}
 export interface GeolocationPosition {
   coords: {
     latitude: number
@@ -34,7 +46,7 @@ const getWeather = async () => {
 }
 
 export const useGetWeather = () =>
-  useQuery2<Clothing[]>({
+  useQuery2<WeatherInfo>({
     queryKey: ['app.weather'],
     queryFn: getWeather,
   })
