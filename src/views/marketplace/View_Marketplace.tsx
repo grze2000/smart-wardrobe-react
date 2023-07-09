@@ -1,6 +1,7 @@
 import { Box, Button } from '@mantine/core'
 import { useGetClothes } from 'app/api/clothes/getClothes'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import labelTags from 'public/img/label-tags.png'
 
 const colors = ['#f1f6fa', '#f9f4f3', '#f5f5f5', '#fcf4ef']
 
@@ -27,7 +28,7 @@ const Dashboard = () => {
             }] rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
           >
             <img
-              src={clothing.photoUrl}
+              src={clothing.photoUrl || labelTags}
               alt=""
               className="w-full aspect-square rounded object-contain"
             />

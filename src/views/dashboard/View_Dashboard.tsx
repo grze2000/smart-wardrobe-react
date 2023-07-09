@@ -27,6 +27,7 @@ import { FormProvider } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import { ImCross } from 'react-icons/im'
 import { useSearchParams } from 'react-router-dom'
+import labelTags from 'public/img/label-tags.png'
 
 function capitalize(str = '') {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -145,8 +146,10 @@ const Dashboard = () => {
           <>
             <div className="grow">
               <div className="text-4xl">
-                {capitalize(weather?.current.weather?.[0]?.description as string)},{' '}
-                {weather?.current.temp}°C
+                {capitalize(
+                  weather?.current.weather?.[0]?.description as string,
+                )}
+                , {weather?.current.temp}°C
               </div>
               <div className="sm:mt-4">{weather?.daily[0]?.summary}</div>
             </div>
@@ -195,7 +198,7 @@ const Dashboard = () => {
             className={`rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
           >
             <img
-              src={clothing.photoUrl}
+              src={clothing.photoUrl || labelTags}
               alt=""
               className="w-full aspect-square rounded object-contain"
             />
