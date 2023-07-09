@@ -145,7 +145,7 @@ const Dashboard = () => {
           <>
             <div className="grow">
               <div className="text-4xl">
-                {capitalize(weather?.current.weather.description as string)},{' '}
+                {capitalize(weather?.current.weather?.[0]?.description as string)},{' '}
                 {weather?.current.temp}°C
               </div>
               <div className="sm:mt-4">{weather?.daily[0]?.summary}</div>

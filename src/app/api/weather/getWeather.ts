@@ -7,7 +7,7 @@ export interface WeatherInfo {
     temp: number
     weather: {
       description: string
-    }
+    }[]
   }
   daily: {
     summary: string
