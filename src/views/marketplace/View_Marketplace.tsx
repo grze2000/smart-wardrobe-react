@@ -27,7 +27,7 @@ const Dashboard = () => {
             }] rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
           >
             <img
-              src="https://ae01.alicdn.com/kf/H0e288fca496e41f1bbc98ca0b0ef4a45u/Smutne-Glitch-Vintage-bluzy-dla-m-czyzn-Yung-Lean-estetyczne-Vaporwave-smutne-ch-opcy-bluzy-z.jpg_.webp"
+              src={clothing.photoUrl}
               alt=""
               className="w-full aspect-square rounded object-contain"
             />
