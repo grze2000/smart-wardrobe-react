@@ -136,13 +136,15 @@ const Dashboard = () => {
           <h1 className="text-3xl">Dashboard</h1>
         </Group>
       </Group>
-      <div className="bg-gradient-to-tr to-[#dceaf9] from-[#f7ede9] via-[#e9e8fb] h-52 rounded-lg flex flex-col sm:flex-row p-4 gap-4">
+      <div className="bg-gradient-to-tr to-[#dceaf9] from-[#f7ede9] via-[#e9e8fb] min-h-52 rounded-lg flex flex-col sm:flex-row p-4 gap-4">
         <div className="grow">
           <div className="text-4xl">Słonecznie, 22°C</div>
           <div className="sm:mt-4">Brak prognozowanych opadów</div>
         </div>
         <div className="flex flex-col justify-between">
-          <div className="text-center sm:text-left mb-2 sm:mb-0">Ubierz się lekko i przewiewnie</div>
+          <div className="text-center sm:text-left mb-2 sm:mb-0">
+            Ubierz się lekko i przewiewnie
+          </div>
           <Button>Zobacz propozycje</Button>
         </div>
       </div>
@@ -164,9 +166,10 @@ const Dashboard = () => {
         )}
         {clothes?.map((clothing, index) => (
           <div
-            className={`bg-[${
-              colors[index % 4]
-            }] rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
+            style={{
+              backgroundColor: colors[index % 4],
+            }}
+            className={`rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
           >
             <img
               src={clothing.photoUrl}
