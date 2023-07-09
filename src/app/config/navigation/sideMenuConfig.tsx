@@ -5,11 +5,18 @@ import { GiConverseShoe, GiHoodie, GiMonclerJacket, GiOutbackHat, GiPirateCoat, 
 import { PiDressFill, PiShirtFoldedFill } from 'react-icons/pi'
 import { FaTshirt } from 'react-icons/fa'
 import { BiSolidTShirt } from 'react-icons/bi'
+import { TiThSmall } from 'react-icons/ti'
 
 export const sideMenuConfig: NavigationConfigItem[] = [
   {
     type: 'item',
     label: 'Kategorie',
+  },
+  {
+    type: 'item',
+    value: 'all',
+    icon: TiThSmall,
+    label: 'Wszystkie'
   },
   {
     type: 'item',

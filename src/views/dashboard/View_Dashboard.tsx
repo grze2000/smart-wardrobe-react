@@ -97,8 +97,8 @@ const Dashboard = () => {
     searchParams.get('category') as string,
   )
   const { data: weather } = useGetWeather()
-  console.log(weather);
-  
+  console.log(weather)
+
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const onSuccess = () => {
@@ -136,8 +136,15 @@ const Dashboard = () => {
           <h1 className="text-3xl">Dashboard</h1>
         </Group>
       </Group>
-      <div className="bg-gradient-to-tr to-[#dceaf9] from-[#f7ede9] via-[#e9e8fb] py-24 h-52 rounded-lg">
-        fds
+      <div className="bg-gradient-to-tr to-[#dceaf9] from-[#f7ede9] via-[#e9e8fb] h-52 rounded-lg flex flex-col sm:flex-row p-4 gap-4">
+        <div className="grow">
+          <div className="text-4xl">Słonecznie, 22°C</div>
+          <div className="sm:mt-4">Brak prognozowanych opadów</div>
+        </div>
+        <div className="flex flex-col justify-between">
+          <div className="text-center sm:text-left mb-2 sm:mb-0">Ubierz się lekko i przewiewnie</div>
+          <Button>Zobacz propozycje</Button>
+        </div>
       </div>
       <h1 className="text-3xl flex gap-3 items-center">
         Moje ubrania{' '}
@@ -162,9 +169,9 @@ const Dashboard = () => {
             }] rounded-lg sm:basis-[calc(25%-1rem)] p-4 flex flex-col gap-3`}
           >
             <img
-              src="https://ae01.alicdn.com/kf/H0e288fca496e41f1bbc98ca0b0ef4a45u/Smutne-Glitch-Vintage-bluzy-dla-m-czyzn-Yung-Lean-estetyczne-Vaporwave-smutne-ch-opcy-bluzy-z.jpg_.webp"
+              src={clothing.photoUrl}
               alt=""
-              className="w-full aspect-square"
+              className="w-full aspect-square rounded object-contain"
             />
             <h2 className="font-bold">{clothing.name}</h2>
             <div className="flex">

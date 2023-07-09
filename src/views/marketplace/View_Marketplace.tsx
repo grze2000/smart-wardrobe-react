@@ -29,7 +29,7 @@ const Dashboard = () => {
             <img
               src="https://ae01.alicdn.com/kf/H0e288fca496e41f1bbc98ca0b0ef4a45u/Smutne-Glitch-Vintage-bluzy-dla-m-czyzn-Yung-Lean-estetyczne-Vaporwave-smutne-ch-opcy-bluzy-z.jpg_.webp"
               alt=""
-              className="w-full aspect-square"
+              className="w-full aspect-square rounded object-contain"
             />
             <h2 className="font-bold flex justify-between">
               <span>{clothing.name}</span>
