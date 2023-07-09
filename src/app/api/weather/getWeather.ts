@@ -28,7 +28,7 @@ const getWeather = async () => {
   } finally {
     return axios({
       method: 'GET',
-      url: `/api/weather/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}&exclude=minutely,hourly,daily&units=metric&lang=pl`,
+      url: `/api/weather/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}&exclude=minutely,hourly&units=metric&lang=pl`,
     }).then(({ data }) => data)
   }
 }
