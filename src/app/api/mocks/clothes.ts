@@ -129,9 +129,9 @@ let clothes: Clothing[] = [
   },
   {
     id: '10',
-    name: 'Jeansy',
+    name: 'Spodnie brązowe',
     description: '',
-    type: 'dżinsy',
+    type: 'spodnie',
     materialThickness: 'medium',
     colors: ['#544b45'],
     status: 'new',

@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react'
 import { FormProvider } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import { ImCross } from 'react-icons/im'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import labelTags from 'public/img/label-tags.png'
 
 function capitalize(str = '') {
@@ -124,6 +124,8 @@ const Dashboard = () => {
     CreateClothingResponse
   >(createClothingSchema, addClothing, { onSuccess, onError }, { photoUrl: '' })
 
+  const navigate = useNavigate()
+
   return (
     <Box className="flex flex-1 flex-col gap-4 px-4">
       <Group position="apart">
@@ -157,7 +159,27 @@ const Dashboard = () => {
                 {weather?.daily[0]?.rain &&
                   ', pamiętaj o parasolu lub kurtce przeciwdeszczowej'}
               </div>
-              <Button>Zobacz propozycje</Button>
+              <Button
+                onClick={() =>
+                  navigate(
+                    `/app?category=${
+                      weather?.current?.temp > 25
+                        ? Math.random() > 0.5
+                          ? 'tshirts'
+                          : 'spodenki'
+                        : weather?.current.temp > 15
+                        ? Math.random() > 0.5
+                          ? 'koszule'
+                          : 'spodnie'
+                        : Math.random() > 0.5
+                        ? 'bluzy'
+                        : 'koszule'
+                    }`,
+                  )
+                }
+              >
+                Zobacz propozycje
+              </Button>
             </div>
           </>
         ) : (
@@ -216,8 +238,13 @@ const Dashboard = () => {
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <InputText name="name" label="Nazwa" placeholder='Nazwa' required />
-            <InputText name="photoUrl" label="Adres url zdjęcia" placeholder='https://...' required />
+            <InputText name="name" label="Nazwa" placeholder="Nazwa" required />
+            <InputText
+              name="photoUrl"
+              label="Adres url zdjęcia"
+              placeholder="https://..."
+              required
+            />
             <InputColor name="colors" withPicker withPreview />
             <InputSelect
               name="type"
