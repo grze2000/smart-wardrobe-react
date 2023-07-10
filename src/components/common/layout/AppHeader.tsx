@@ -85,7 +85,7 @@ export const AppHeader = () => {
 
           <Menu.Dropdown>
             <Menu.Label>Konto</Menu.Label>
-            <Menu.Item>Ustawienia</Menu.Item>
+            {/* <Menu.Item>Ustawienia</Menu.Item> */}
             <Menu.Divider />
             <Menu.Item onClick={openLogoutModal}>Wyloguj się</Menu.Item>
           </Menu.Dropdown>
