@@ -16,7 +16,6 @@ import {
   createClothingSchema,
 } from 'app/api/clothes/addClothing'
 import { useGetClothes } from 'app/api/clothes/getClothes'
-import { uploadClothingImage } from 'app/api/clothes/uploadClothingImage'
 import { useGetWeather } from 'app/api/weather/getWeather'
 import { useFormMutation } from 'app/hooks'
 import { AxiosError } from 'axios'
@@ -125,15 +124,6 @@ const Dashboard = () => {
     CreateClothingResponse
   >(createClothingSchema, addClothing, { onSuccess, onError }, { photoUrl: '' })
 
-  const [file, setFile] = useState<File | null>(null)
-
-  useEffect(() => {
-    if (!file) return
-    const data = uploadClothingImage(file)
-    // methods.setValue('photoUrl', data?.url as string)
-    console.log(data)
-  }, [file])
-
   return (
     <Box className="flex flex-1 flex-col gap-4 px-4">
       <Group position="apart">
@@ -226,10 +216,8 @@ const Dashboard = () => {
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <InputText name="name" label="Nazwa" required />
-            <FileButton onChange={setFile} accept="image/png,image/jpeg">
-              {(props) => <Button {...props}>Wybierz zdjęcie</Button>}
-            </FileButton>
+            <InputText name="name" label="Nazwa" placeholder='Nazwa' required />
+            <InputText name="photoUrl" label="Adres url zdjęcia" placeholder='https://...' required />
             <InputColor name="colors" withPicker withPreview />
             <InputSelect
               name="type"

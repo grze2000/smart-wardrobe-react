@@ -49,4 +49,7 @@ export const useGetWeather = () =>
   useQuery2<WeatherInfo>({
     queryKey: ['app.weather'],
     queryFn: getWeather,
+    config: {
+      refetchOnWindowFocus: false
+    }
   })
